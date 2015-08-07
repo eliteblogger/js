@@ -1,5 +1,5 @@
 /**
- * custom.js
+ * all.js
  * custom JavaScript functions and plugin initialization
  */
 $(function () {
