@@ -68,7 +68,80 @@ $(function () {
 }); // end $(function () {})
 
 
-$(document).ready(function () {}
+$(document).ready(function () {
+
+    'use strict';
+
+    /* Form validation and submit */
+
+    function formValidation() {
+        var register_form = $('#register-form, #register-form-1, #register-form-2, #register-form-3, #register-form-4, #register-form-5');
+        register_form.each(function () {
+            var $this = $(this);
+            $this.validate({
+
+                // Validation rules
+                rules: {
+                    reg_name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    reg_email: {
+                        required: true,
+                        email: true
+                    },
+                    reg_phone: {
+                        required: true,
+                        number: true,
+                        minlength: 7
+                    },
+/*                    reg_check: {
+                        required: true
+                    }*/
+                },
+
+                // Validation error messages
+                messages: {
+                    reg_name: {
+                        required: 'Your name is required',
+                        minlength: 'Please enter at least 2 characters'
+                    },
+                    reg_phone: {
+                        required: 'Your phone number is required',
+                        number: 'Please enter only numbers',
+                        minlength: 'Please enter at least 7 digits'
+                    },
+                    reg_email: {
+                        required: 'Your email is required',
+                        email: 'Please enter a valid email address'
+                    },
+/*                    reg_check: {
+                        required: 'This field is required'
+                    }*/
+                },
+
+                submitHandler: function (form) {
+                    var $item = $(form),
+                        output = '';
+
+                    // Send Ajax post data
+                    $.post($item.attr('action'), $item.serialize(), function (response) {
+
+                        // Get response from server    
+                        if (response.type === 'error') {
+                            output = '<div class="error-box"><i class="icon icon-info"></i>' + response.text + '</div>';
+                        } else {
+                            output = '<div class="success-box"><i class="icon icon-check"></i>' + response.text + '</div>';
+
+                            // Reset form
+                            form.reset();
+                        }
+                        $item.parent().parent().find('.result').hide().html(output).slideDown();
+                    }, 'json');
+                }
+            });
+        });
+    }
 
     formValidation();
 
