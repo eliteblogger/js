@@ -68,6 +68,11 @@ $(function () {
 }); // end $(function () {})
 
 
+$(document).ready(function () {}
+
+    formValidation();
+
+
     /**
      * Smooth scrolling
      * Adapted from: http://css-tricks.com/snippets/jquery/smooth-scrolling/
